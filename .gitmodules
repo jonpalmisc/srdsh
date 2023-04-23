@@ -1,0 +1,6 @@
+[submodule "vendor/dropbear"]
+	path = vendor/dropbear
+	url = git@github.com:jonpalmisc/dropbear-srd.git
+[submodule "vendor/toybox"]
+	path = vendor/toybox
+	url = git@github.com:landley/toybox.git
