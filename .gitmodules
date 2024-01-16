@@ -3,4 +3,4 @@
 	url = git@github.com:jonpalmisc/dropbear-srd.git
 [submodule "vendor/toybox"]
 	path = vendor/toybox
-	url = git@github.com:landley/toybox.git
+	url = git@github.com:jonpalmisc/toybox-srd.git

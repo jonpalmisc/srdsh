@@ -13,15 +13,7 @@ $(TOYBOX_SRC_DIR)/instlist: $(TOYBOX_BIN)
 	$(HOSTCC) $(HOST_CFLAGS) -I $(TOYBOX_SRC_DIR) $(TOYBOX_SRC_DIR)/scripts/install.c -o $@ || exit 1
 
 $(TOYBOX_CONFIG):
-	@$(call log_info, "Tweaking toybox configuration...")
-	gsed -i '/CONFIG_SH=/d' $(TOYBOX_SRC_DIR)/kconfig/macos_miniconfig
-	gsed -i '/CONFIG_VI=/d' $(TOYBOX_SRC_DIR)/kconfig/macos_miniconfig
-	gsed -i '/CONFIG_WGET=/d' $(TOYBOX_SRC_DIR)/kconfig/macos_miniconfig
-
-	echo CONFIG_SH=y >>$(TOYBOX_SRC_DIR)/kconfig/macos_miniconfig
-	echo CONFIG_VI=y >>$(TOYBOX_SRC_DIR)/kconfig/macos_miniconfig
-	echo CONFIG_WGET=y >>$(TOYBOX_SRC_DIR)/kconfig/macos_miniconfig
-
+	@$(call log_info, "Freezing toybox configuration...")
 	@env -vi PATH="$(PATH)" $(MAKE) -C $(TOYBOX_SRC_DIR) macos_defconfig HOSTCC="$(TOYBOX_HOSTCC)" $(HUSH)
 
 # Toybox needs `sys/disk.h` to build.
