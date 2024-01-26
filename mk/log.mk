@@ -7,7 +7,7 @@ COLOR_RED	:= tput -Txterm setaf 1
 COLOR_RESET	:= tput -Txterm sgr0
 
 # Shorthand to silence a command's output, can be appended to any command.
-export HUSH	:= >/dev/null 2>&1
+export HUSH	?= >/dev/null 2>&1
 
 # Log an high-level, important message, e.g. starting a major task.
 log = { $(COLOR_GREEN); echo $1; $(COLOR_RESET); }
