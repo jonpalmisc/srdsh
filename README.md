@@ -1,9 +1,16 @@
 # SRDsh
 
 SRDsh provides a SSH server (Dropbear) and a collection of standard command
-line utilities (toybox) via a single, standalone cryptex. It is intended to be
+line utilities (toybox) via a single, standalone cryptex. ~~It is intended to be
 installed alongside other cryptexi, leveraging the modularity of the cryptex
-system, as opposed to jamming all your tools, etc. into a single cryptex.
+system, as opposed to jamming all your tools, etc. into a single cryptex.~~
+
+**2024 Update:** Using multiple cryptexes in tandem has a variety of issues;
+the original vision I had of maintaining ports of tools for the SRD in multiple
+different cryptexes didn't really pan out. A notable recent addition is the
+"user" folder in the apps subdirectory, which provides a place to insert
+proof-of-concept code, etc. that will automatically be available in `PATH` as
+`user-app` via SSH.
 
 > This project is primarily for my own use. I've chosen to make it open source
 > in case other researchers find it useful. Support or active maintenance
@@ -28,17 +35,17 @@ useful in other projects.
 To build, clone the SRDsh repo (with submodules) and run `make`:
 
 ```sh
-git clone --recurse-submodules git@github.com:jonpalmisc/srdsh-draft.git
+git clone --recurse-submodules git@github.com:jonpalmisc/srdsh.git
 make
 ```
 > You will need the Xcode CLI tools installed and `cryptexctl` available in
 > your path.
 
-To install the cryptex on your device, you can use the `cryptex-install`
-convenience target provided:
+To install the cryptex on your device, you can use the `install` convenience
+target provided:
 
 ```sh
-make cryptex-install
+make install
 ```
 
 Note that you will likely need to set the `CRYPTEXCTL_UDID` environment
