@@ -43,14 +43,16 @@ $(CRYPTEX): $(CRYPTEX_IMAGE)
 		--identifier=$(CRYPTEX_ID) --version=$(CRYPTEX_VERSION) \
 		--variant=research $(CRYPTEX_IMAGE) 
 
-# Helper target to personalize and install the cryptex to a device; will not
-# work if `CRYPTEXCTL_UDID` is not set.
-.PHONY: cryptex-install
-cryptex-install: $(CRYPTEX)
-	cryptexctl uninstall $(CRYPTEX_ID) $(HUSH) || true
+# This is split out as a separate step to avoid repeatedly re-signing the
+# cryptex upon installation even if the contents have not changed.
+$(CRYPTEX).signed: $(CRYPTEX)
 	@$(call log_info, "Personalizing cryptex for device...")
 	cryptexctl personalize --replace -o $(BUILD_DIR) --variant=research $(CRYPTEX) || exit 1
+
+.PHONY: install
+install: $(CRYPTEX).signed
 	@$(call log, "Installing cryptex on device...")
+	cryptexctl uninstall $(CRYPTEX_ID) $(HUSH) || true
 	cryptexctl install --variant=research $(CRYPTEX).signed
 
 .PHONY: clean
